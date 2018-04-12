@@ -11,7 +11,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Calendar 8</h1>
         </header>
-        <Calendar />
+        <Calendar
+          startDate={new Date()}
+          totalDays={15}
+          countryCode={'US'}
+        />
       </div>
     );
   }
