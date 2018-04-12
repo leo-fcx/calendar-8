@@ -11,16 +11,21 @@ class Calendar extends Component {
     const currentDate = new Date(startDate);
 
     const data = [];
-    const month = {};
-    const days = {};
-    const initialMonth = startDate.getMonth();
-    const initialYear = startDate.getYear();
+    let days = [];
+    let initialMonth = currentDate.getMonth();
+    let initialYear = currentDate.getFullYear();
 
     for (var i = 1; i <= length; i++) {
-      const dayData =  currentDate.setDate(currentDate.getDate() + i);
 
       if (initialMonth !== currentDate.getMonth()) {
-        data.push({});
+        data.push({
+          month: initialMonth,
+          year: initialYear,
+          days,
+        });
+        days = [];
+        initialMonth = currentDate.getMonth();
+        initialYear = currentDate.getFullYear();
       }
 
       const day = currentDate.getDay();
@@ -31,22 +36,19 @@ class Calendar extends Component {
         inRange: true,
         isHoliday: false,
       });
+
+      currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    return [
-      {
-        month:1,
-        days: [
-          {
-            day: 1,
-            date: 1,
-            isWeekend: true,
-            inRange: true,
-            isHoliday: false,
-          }
-        ]
-      }
-    ];
+    if (days.length > 0) {
+      data.push({
+        month: initialMonth,
+        year: initialYear,
+        days,
+      });
+    }
+
+    return data;
   }
 
   render() {
@@ -57,6 +59,8 @@ class Calendar extends Component {
     } = this.props;
 
     const data = Calendar.buildData(startDate, totalDays);
+
+    console.log(data);
 
     return (
       <div className="calendar">

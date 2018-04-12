@@ -13,7 +13,7 @@ class App extends Component {
         </header>
         <Calendar
           startDate={new Date()}
-          totalDays={15}
+          totalDays={30}
           countryCode={'US'}
         />
       </div>
