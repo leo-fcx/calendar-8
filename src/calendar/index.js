@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import Month from './month';
 import './Calendar.css';
 
 class Calendar extends Component {
@@ -64,7 +65,16 @@ class Calendar extends Component {
 
     return (
       <div className="calendar">
-        {this.props.totalDays}
+        {
+          data.map(item => (
+            <Month
+              key={`${item.year}${item.month}`}
+              month={item.month}
+              year={item.year}
+              days={item.days}
+            />
+          ))
+        }
       </div>
     );
   }
